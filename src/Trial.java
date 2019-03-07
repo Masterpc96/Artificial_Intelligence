@@ -120,4 +120,48 @@ public class Trial {
         }
         return builder.toString();
     }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public String getKnapackDataType() {
+        return knapackDataType;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public int getNumberOfItem() {
+        return numberOfItem;
+    }
+
+    public int getKnapsackCapacity() {
+        return knapsackCapacity;
+    }
+
+    public float getMinSpeed() {
+        return minSpeed;
+    }
+
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public float getRentingRatio() {
+        return rentingRatio;
+    }
+
+    public String getEdgeWeightType() {
+        return edgeWeightType;
+    }
+
+    public ArrayList<Place> getPlaces() {
+        return places;
+    }
 }
