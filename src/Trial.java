@@ -12,12 +12,12 @@ public class Trial {
     private int dimension;
     private int numberOfItem;
     private int knapsackCapacity;
-    private float minSpeed;
-    private float maxSpeed;
-    private float rentingRatio;
+    private double minSpeed;
+    private double maxSpeed;
+    private double rentingRatio;
     private String edgeWeightType;
 
-    ArrayList<Place> places;
+    private ArrayList<Place> places;
 
 
     public Trial(String path) {
@@ -48,13 +48,13 @@ public class Trial {
                         knapsackCapacity = Integer.parseInt(splitted[1].trim());
                         break;
                     case 5:
-                        minSpeed = Float.parseFloat(splitted[1].trim());
+                        minSpeed = Double.parseDouble(splitted[1].trim());
                         break;
                     case 6:
-                        maxSpeed = Float.parseFloat(splitted[1].trim());
+                        maxSpeed = Double.parseDouble(splitted[1].trim());
                         break;
                     case 7:
-                        rentingRatio = Float.parseFloat(splitted[1].trim());
+                        rentingRatio = Double.parseDouble(splitted[1].trim());
                         break;
                     case 8:
                         edgeWeightType = splitted[1].trim();
@@ -70,8 +70,8 @@ public class Trial {
                 line = reader.readLine();
                 splitPlace = line.split("\t");
                 places.add(new Place(Integer.parseInt(splitPlace[0].trim()),
-                        Float.parseFloat(splitPlace[1].trim()),
-                        Float.parseFloat(splitPlace[2].trim())));
+                        Double.parseDouble(splitPlace[1].trim()),
+                        Double.parseDouble(splitPlace[2].trim())));
             }
 
             reader.readLine();  // header
@@ -145,15 +145,15 @@ public class Trial {
         return knapsackCapacity;
     }
 
-    public float getMinSpeed() {
+    public double getMinSpeed() {
         return minSpeed;
     }
 
-    public float getMaxSpeed() {
+    public double getMaxSpeed() {
         return maxSpeed;
     }
 
-    public float getRentingRatio() {
+    public double getRentingRatio() {
         return rentingRatio;
     }
 

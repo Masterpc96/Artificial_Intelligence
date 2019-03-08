@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class Place {
     private int index;
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
     ArrayList<Item> items;
 
-    public Place(int index, float x, float y) {
+    public Place(int index, double x, double y) {
         this.index = index;
         this.x = x;
         this.y = y;
@@ -22,11 +22,11 @@ public class Place {
         return index;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
