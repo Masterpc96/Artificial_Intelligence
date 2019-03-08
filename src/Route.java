@@ -127,6 +127,8 @@ public class Route {
         builder.append(time);
         builder.append("\npicked items ");
         builder.append(rucksack.getItems().size());
+        builder.append("\nG(x,y) = ");
+        builder.append(rucksack.getTotalProfit() - time);
 
         return builder.toString();
     }
