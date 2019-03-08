@@ -24,11 +24,19 @@ public class Route {
         rucksack = new Rucksack(capacity);
         nodes = new ArrayList<>(places.size());
         randomPath(new ArrayList<>(places));
-        sumDistance();
+
+    }
+
+    public void mutation(){
+
+    }
+
+    public void crossover(){
+
     }
 
     // sum distance between all cities
-    private void sumDistance() {
+    public void evaluate() {
         Place start;
         Place stop;
 
