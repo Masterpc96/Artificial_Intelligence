@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ public class Trial {
     private BufferedReader reader;
 
     private String problemName;
-    private String knapackDataType;
+    private String knapsackDataType;
     private int dimension;
     private int numberOfItem;
     private int knapsackCapacity;
@@ -36,7 +35,7 @@ public class Trial {
                         problemName = splitted[1].trim();
                         break;
                     case 1:
-                        knapackDataType = splitted[1].trim();
+                        knapsackDataType = splitted[1].trim();
                         break;
                     case 2:
                         dimension = Integer.parseInt(splitted[1].trim());
@@ -98,8 +97,8 @@ public class Trial {
 
         builder.append("problemName ");
         builder.append(problemName);
-        builder.append("\nknapackDataType ");
-        builder.append(knapackDataType);
+        builder.append("\nknapsackDataType ");
+        builder.append(knapsackDataType);
         builder.append("\ndimension ");
         builder.append(dimension);
         builder.append("\nnumberOfItem ");
@@ -129,8 +128,8 @@ public class Trial {
         return problemName;
     }
 
-    public String getKnapackDataType() {
-        return knapackDataType;
+    public String getKnapsackDataType() {
+        return knapsackDataType;
     }
 
     public int getDimension() {
