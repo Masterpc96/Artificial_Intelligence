@@ -16,7 +16,7 @@ public class Trial {
     private double rentingRatio;
     private String edgeWeightType;
 
-    private ArrayList<Place> places;
+    private ArrayList<Node> nodes;
 
 
     public Trial(String path) {
@@ -62,13 +62,13 @@ public class Trial {
             }
 
             reader.readLine();  // header
-            places = new ArrayList<>(dimension);
+            nodes = new ArrayList<>(dimension);
             String splitPlace[];
-            // reading places cords
+            // reading nodes cords
             for (int i = 0; i < dimension; i++) {
                 line = reader.readLine();
                 splitPlace = line.split("\t");
-                places.add(new Place(Integer.parseInt(splitPlace[0].trim()),
+                nodes.add(new Node(Integer.parseInt(splitPlace[0].trim()),
                         Double.parseDouble(splitPlace[1].trim()),
                         Double.parseDouble(splitPlace[2].trim())));
             }
@@ -76,12 +76,12 @@ public class Trial {
             reader.readLine();  // header
             String splitItems[];
             int assigned;
-            // assign items to places
+            // assign items to nodes
             for (int i = 0; i < numberOfItem; i++) {
                 line = reader.readLine();
                 splitItems = line.split("\t");
                 assigned = Integer.parseInt(splitItems[3].trim()) - 1;
-                places.get(assigned).addItem(new Item(Integer.parseInt(splitItems[0].trim()),
+                nodes.get(assigned).addItem(new Item(Integer.parseInt(splitItems[0].trim()),
                         Integer.parseInt(splitItems[1].trim()),
                         Integer.parseInt(splitItems[2].trim())));
             }
@@ -114,8 +114,8 @@ public class Trial {
         builder.append("\nedgeWeightType ");
         builder.append(edgeWeightType);
         builder.append("\n");
-        for (Place place : places){
-            builder.append(place.toString());
+        for (Node node : nodes){
+            builder.append(node.toString());
         }
         return builder.toString();
     }
@@ -160,7 +160,7 @@ public class Trial {
         return edgeWeightType;
     }
 
-    public ArrayList<Place> getPlaces() {
-        return places;
+    public ArrayList<Node> getNodes() {
+        return nodes;
     }
 }

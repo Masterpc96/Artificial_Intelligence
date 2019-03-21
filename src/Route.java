@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Route {
-    private ArrayList<Place> nodes;
+    private ArrayList<Node> nodes;
 
     private Rucksack rucksack;
 
@@ -17,28 +17,27 @@ public class Route {
 
     private double speed;
 
-    public Route(int id, ArrayList<Place> places, double vMax, double vMin, double capacity) {
+    private double ratio;
+
+    private double capacity;
+
+    public Route(int id, ArrayList<Node> nodes, double vMax, double vMin, double capacity, boolean randPath) {
         this.id = id;
         this.vMax = vMax;
         this.vMin = vMin;
+        this.capacity = capacity;
         rucksack = new Rucksack(capacity);
-        nodes = new ArrayList<>(places.size());
-        randomPath(new ArrayList<>(places));
+        ArrayList<Node> temp = new ArrayList<>(nodes);
+        Collections.shuffle(temp);
+        this.nodes = temp;
 
-    }
-
-    public void mutation(){
-
-    }
-
-    public void crossover(){
 
     }
 
     // sum distance between all cities
     public void evaluate() {
-        Place start;
-        Place stop;
+        Node start;
+        Node stop;
 
         double temp;
 
@@ -52,7 +51,7 @@ public class Route {
             chooseItemProfit(start.getItems());
 
             // calculate speed after collecting items in city
-            speed = vMax - rucksack.getTotalWeight() * ((vMax - vMin)/rucksack.getCapacity());
+            speed = vMax - rucksack.getTotalWeight() * ((vMax - vMin) / rucksack.getCapacity());
 
             // city to go
             stop = nodes.get(i + 1);
@@ -71,7 +70,7 @@ public class Route {
         start = nodes.get(nodes.size() - 1); // last city
 
         // calculate speed after collecting items in city
-        speed = vMax - rucksack.getTotalWeight() * ((vMax - vMin)/rucksack.getCapacity());
+        speed = vMax - rucksack.getTotalWeight() * ((vMax - vMin) / rucksack.getCapacity());
 
         // colect items from last city
         chooseItemProfit(start.getItems());
@@ -83,20 +82,20 @@ public class Route {
 
         time += temp / speed;
 
+        ratio = rucksack.getTotalProfit() - time;
+
     }
 
     // calculate distance between two places
-    private double calculateDistance(Place start, Place stop) {
+    private double calculateDistance(Node start, Node stop) {
         return Math.sqrt(Math.pow((stop.getX() - start.getX()), 2) + Math.pow((stop.getY() - start.getY()), 2));
     }
 
     // generate path
-    private void randomPath(ArrayList<Place> places) {
-        Random random = new Random();
-        while (!places.isEmpty()) {
-            nodes.add(places.remove(random.nextInt(places.size())));
-        }
+    private void randomPath(ArrayList<Node> nodes) {
+        Collections.shuffle(this.nodes);
     }
+
 
     // choose the most profitable item
     private void chooseItemProfit(ArrayList<Item> items) {
@@ -109,12 +108,22 @@ public class Route {
             }
         });
 
-        // add items to rucksack if total weight is less then capacity
-        for (Item item : items) {
-            if (rucksack.getTotalWeight() + item.getWeight() <= rucksack.getCapacity()) {
-                rucksack.addItem(item);
+        if (!items.isEmpty()) {
+            if (rucksack.getTotalWeight() + items.get(0).getWeight() <= rucksack.getCapacity()) {
+                Random r = new Random(1);
+                if (r.nextBoolean()) {
+                    rucksack.addItem(items.get(0));
+                }
+
             }
         }
+
+        // add items to rucksack if total weight is less then capacity
+//        for (Item item : items) {
+//            if (rucksack.getTotalWeight() + item.getWeight() <= rucksack.getCapacity()) {
+//                rucksack.addItem(item);
+//            }
+//        }
 
     }
 
@@ -124,7 +133,7 @@ public class Route {
         builder.append("Route ");
         builder.append(id);
         builder.append(" { ");
-        for (Place p : nodes) {
+        for (Node p : nodes) {
             builder.append(p.getIndex());
             builder.append(" ");
         }
@@ -136,12 +145,20 @@ public class Route {
         builder.append("\npicked items ");
         builder.append(rucksack.getItems().size());
         builder.append("\nG(x,y) = ");
-        builder.append(rucksack.getTotalProfit() - time);
+        builder.append(ratio);
 
         return builder.toString();
     }
 
-    public ArrayList<Place> getNodes() {
+    public Rucksack getRucksack() {
+        return rucksack;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public ArrayList<Node> getNodes() {
         return nodes;
     }
 
@@ -151,5 +168,30 @@ public class Route {
 
     public double getDistance() {
         return distance;
+    }
+
+    public double getRatio() {
+        return ratio;
+    }
+
+
+    public double getvMax() {
+        return vMax;
+    }
+
+    public double getvMin() {
+        return vMin;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public double getCapacity() {
+        return capacity;
+    }
+
+    public void setNodes(ArrayList<Node> nodes) {
+        this.nodes = nodes;
     }
 }

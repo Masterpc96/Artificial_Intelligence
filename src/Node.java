@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class Place {
+public class Node {
     private int index;
     private double x;
     private double y;
 
     ArrayList<Item> items;
 
-    public Place(int index, double x, double y) {
+    public Node(int index, double x, double y) {
         this.index = index;
         this.x = x;
         this.y = y;
